@@ -32,6 +32,7 @@ const RouterComponent = () => (
                 tabs
                 headerMode='none'
                 hideNavBar  
+                type='replace'
             >
                 <Scene key="Login">
                     <Scene
