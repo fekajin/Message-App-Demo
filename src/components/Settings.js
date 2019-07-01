@@ -19,9 +19,9 @@ class UserInfo extends Component {
     }
 
     onSaveButtonPress() {
-        const { name, surname, phone, adress, identity } = this.props;
+        const { name, surname, phone, adress, nickname } = this.props;
         this.props.userDelete();
-        this.props.userUpdate({ name, surname, phone, adress, identity });
+        this.props.userUpdate({ name, surname, phone, adress, nickname });
     }
     
     onExitButtonPress() {
@@ -76,12 +76,12 @@ class UserInfo extends Component {
 
                 <CardSection>
                     <Input
-                        label="Identity"
+                        label="Nickname"
                         placeholder="5335566450"
-                        value={this.props.identity}
+                        value={this.props.nickname}
                         onChangeText={value =>
                             this.props.userInputUpdate({
-                                prop: 'identity', value
+                                prop: 'nickname', value
                             })}
                     />
                 </CardSection>
@@ -107,8 +107,8 @@ class UserInfo extends Component {
 
 
 const mapStateToProps = (state) => {
-    const { name, surname, phone, adress, identity } = state.users;
-    return { name, surname, phone, adress, identity };
+    const { name, surname, phone, adress, nickname } = state.users;
+    return { name, surname, phone, adress, nickname };
 };
 
 export default connect(mapStateToProps, {

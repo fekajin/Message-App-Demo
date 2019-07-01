@@ -1,3 +1,4 @@
+/* eslint-disable arrow-body-style */
 /* eslint-disable max-len */
 
 import firebase from 'firebase';
@@ -19,10 +20,12 @@ export const userInputUpdate = ({ prop, value }) => ({
     payload: { prop, value }
 });
 
-export const searchInputUpdate = ({ value }) => ({
-    type: USER_SEARCH_UPDATE,
-    payload: { value }
-});
+export const searchInputUpdate = (value) => {
+    return {
+        type: USER_SEARCH_UPDATE,
+        payload: value
+    };
+};
 
 export const userFetch = () => {
     const { currentUser } = firebase.auth();
@@ -34,11 +37,11 @@ export const userFetch = () => {
     };
 };
 
-export const userUpdate = ({ name, surname, phone, adress, identity }) => {
+export const userUpdate = ({ name, surname, phone, adress, nickname }) => {
     const { currentUser } = firebase.auth();
     return (dispatch) => {
         firebase.database().ref(`/app/users/${currentUser.uid}`)
-            .set({ name, surname, phone, adress, identity })
+            .set({ name, surname, phone, adress, nickname })
             .then(() => {
                 dispatch({ type: USER_UPDATE });
                 Actions.main();
@@ -46,21 +49,20 @@ export const userUpdate = ({ name, surname, phone, adress, identity }) => {
     };
 };
 
-export const userCreate = ({ name, surname, phone, adress, identity, email, password }) => (dispatch) => {
+export const userCreate = ({ name, surname, phone, adress, nickname, email, password }) => (dispatch) => {
     dispatch({ type: SIGN_USER });
-    if (email === '' || name === '' || phone === '' || adress === '' || identity === '' || email === '' || password === '') {
+    if (email === '' || name === '' || phone === '' || adress === '' || nickname === '' || email === '' || password === '') {
         loginUserFl(dispatch);
     } else {
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(() => {
                 const { currentUser } = firebase.auth();
                 firebase.database().ref(`/app/users/${currentUser.uid}`)
-                    .set({ name, surname, phone, adress, identity, email, password })
+                    .set({ name, surname, phone, adress, nickname, email, password })
                     .then(() => {
                         const id = currentUser.uid;
-                        const nick = name + surname;
                         firebase.database().ref('/app/userNicks')
-                            .set({ nickname: nick, phone, id });
+                            .push({ nickname, phone, id });
                         dispatch({ type: USER_CREATE });
                         dispatch({ type: LOGIN_USER_SUCCESS });
                         Actions.main();
@@ -72,20 +74,11 @@ export const userCreate = ({ name, surname, phone, adress, identity, email, pass
     }
 };
 
-export const userSearch = ({ nick }) => (dispatch) => {
+export const userSearch = () => (dispatch) => {
     firebase.database().ref('/app/userNicks')
-        .orderByChild('nickname')
-        .startAt(nick)
-        .endAt(nick)
         .on('value', snapshot => {
             console.log(snapshot.val());
-
-            //     .then(() => {
-            //         dispatch({ type: USER_SEARCH, payload: snapshot.val() })
-            //     })
-            //     .catch(() =>
-            //     console.log('hata')
-            // );
+            dispatch({ type: USER_SEARCH, payload: snapshot.val() });
         });
 };
 

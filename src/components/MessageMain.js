@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { ListView } from 'react-native';
 import { messagesFetchByUser } from '../actions';
-import { MessageMainItem } from './MessageMainItem';
+import MessageMainItem from './MessageMainItem';
 
 
 class MessageMain extends Component {
@@ -17,14 +17,14 @@ class MessageMain extends Component {
     UNSAFE_componentWillReceiveProps(nextProps) {
         this.createDataSource(nextProps);
     }
-    createDataSource({ fetchs }) {
+    createDataSource({ messages }) {
         const ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2
         });
-        this.DataSource = ds.cloneWithRows(fetchs);
+        this.DataSource = ds.cloneWithRows(messages);
     }
-    renderRow(fetch) {
-        return <MessageMainItem fetch={fetch} />;
+    renderRow(message) {
+        return <MessageMainItem message={message} />;
     }
 
     render() {
@@ -39,8 +39,8 @@ class MessageMain extends Component {
 }
 
 const mapStateToProps = state => {
-    const fetchs = _.map(state.fetchs, (val, uid) => ({ ...val, uid }));
-    return { fetchs };
+    const messages = _.map(state.messages, (val, uid) => ({ ...val, uid }));
+    return { messages };
     };
 
 export default connect(mapStateToProps, { messagesFetchByUser })(MessageMain);

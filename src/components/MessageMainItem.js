@@ -3,12 +3,11 @@
 
 import React, { Component } from 'react';
 import { Text, TouchableWithoutFeedback, View } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import { CardSection } from './common';
 
 class MessageMainItem extends Component {
     onRowPress() {
-        Actions.doctorForm({ fetch: this.props.fetch });
+        // mesaj form
     }
     render() {
         const { name, surname } = this.props.fetch;

@@ -31,12 +31,14 @@ const RouterComponent = () => (
                 initial
                 tabs
                 headerMode='none'
+                hideNavBar  
             >
                 <Scene key="Login">
                     <Scene
                         key="loginScreen"
                         component={LoginForm}
                         initial
+                        hideNavBar={false}
                     />
                 </Scene>
                 <Scene key="SignUp">
@@ -81,6 +83,8 @@ const RouterComponent = () => (
                     <Scene
                         key="searchScreen"
                         component={Search}
+                        initial
+                        hideNavBar={false}
                     />
                 </Scene>
 

@@ -15,4 +15,5 @@ export const USER_SEARCH = 'user_search';
 export const USER_SEARCH_UPDATE = 'user_search_update';
 
 export const MESSAGELIST_FETCH_SUCCESS = 'messagelist_fetch_success';
+export const CONVERSATION_FETCH_SUCCESS = 'conversation_fetch_success';
 

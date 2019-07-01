@@ -5,12 +5,18 @@ import { connect } from 'react-redux';
 import { ListView, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { userSearch, searchInputUpdate } from '../actions';
-import { MessageMainItem } from './MessageMainItem';
+import SearchMainItem from './SearchMainItem';
 import { CardSection, Input, Button } from './common';
 
 const myIcon = <Icon name="account-search" size={30} color="blue" />;
 
 class Search extends Component {
+
+    // componentDidUpdate() {
+    //     const { fetchs } = this.props;
+    //     this.createDataSource(fetchs);
+    //     this.renderRow();
+    // }
 
     onSearchChange(text) {
         this.props.searchInputUpdate(text);
@@ -24,21 +30,20 @@ class Search extends Component {
         this.createDataSource(nextProps);
     }
 
-    createDataSource({ fetchs }) {
+    createDataSource(data) {
         const ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2
         });
-        this.DataSource = ds.cloneWithRows(fetchs);
+        this.DataSource = ds.cloneWithRows(data.fetchs);
     }
 
     SearchUser() {
-        const { nick } = this.props;
-        console.log(nick);
-        this.props.userSearch(nick);
+        this.props.userSearch();
     }
 
-    renderRow(fetch) {
-        return <MessageMainItem fetch={fetch} />;
+    renderRow(data) {
+        console.log(data);
+        return <SearchMainItem fetch={data} />;
     }
 
     render() {
@@ -47,9 +52,9 @@ class Search extends Component {
                 <CardSection>
                     <Input
                         keyboardType="default"
-                        label="Nick"
+                        label="Nick Name  :"
                         placeholder="xxxArifxxx"
-                        value={this.props.nick}
+                        value={this.props.nickname}
                         onChangeText={this.onSearchChange.bind(this)}
                     />
                 </CardSection>
@@ -71,8 +76,8 @@ class Search extends Component {
 
 const mapStateToProps = state => {
     const fetchs = _.map(state.fetchs, (val, uid) => ({ ...val, uid }));
-    const { nick } = state.users;
-    return { fetchs, nick };
+    const { nickname } = state.users;
+    return { fetchs, nickname };
 };
 
 export default connect(mapStateToProps,

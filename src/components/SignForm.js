@@ -18,8 +18,8 @@ class SignForm extends Component {
     }
 
     onSaveButtonPress() {
-        const { name, surname, phone, adress, identity, email, password } = this.props;
-        this.props.userCreate({ name, surname, phone, adress, identity, email, password });
+        const { name, surname, phone, adress, nickname, email, password } = this.props;
+        this.props.userCreate({ name, surname, phone, adress, nickname, email, password });
     }
 
     renderButtonSignIn() {
@@ -70,7 +70,7 @@ class SignForm extends Component {
 
                 <CardSection>
                     <Input
-                        keyboardType="default"
+                        keyboardType="numeric"
                         label="Phone"
                         placeholder="+90-555-333-44-99"
                         value={this.props.phone}
@@ -90,11 +90,11 @@ class SignForm extends Component {
 
                 <CardSection>
                     <Input
-                        keyboardType="numeric"
-                        label="Identity No"
+                        keyboardType="default"
+                        label="nickname No"
                         placeholder="32265514182"
-                        value={this.props.identity}
-                        onChangeText={value => this.props.userInputUpdate({ prop: 'identity', value })}
+                        value={this.props.nickname}
+                        onChangeText={value => this.props.userInputUpdate({ prop: 'nickname', value })}
                     />
                 </CardSection>
 
@@ -140,9 +140,9 @@ const styles = {
 };
 
 const mapStateToProps = ({ users, auth }) => {
-    const { name, surname, phone, adress, identity } = users;
+    const { name, surname, phone, adress, nickname } = users;
     const { email, password, error, loading } = auth;
-    return { name, surname, phone, adress, identity, email, password, error, loading };
+    return { name, surname, phone, adress, nickname, email, password, error, loading };
 };
 
 export default connect(mapStateToProps, { userInputUpdate, userCreate, userDelete, signUser, emailChanged, passwordChanged })(SignForm);
