@@ -8,6 +8,7 @@ import ForgotPassForm from './components/ForgotPassForm';
 import Search from './components/Search';
 import MessageMain from './components/MessageMain';
 import Settings from './components/Settings';
+import MessageWindow from './components/MessageWindow';
 
 const myIcon = <Icon name="clipboard-account" size={30} color="blue" />;
 
@@ -31,7 +32,7 @@ const RouterComponent = () => (
                 initial
                 tabs
                 headerMode='none'
-                hideNavBar  
+                hideNavBar
                 type='replace'
             >
                 <Scene key="Login">
@@ -84,7 +85,6 @@ const RouterComponent = () => (
                     <Scene
                         key="searchScreen"
                         component={Search}
-                        initial
                         hideNavBar={false}
                     />
                 </Scene>
@@ -99,8 +99,15 @@ const RouterComponent = () => (
                     />
                 </Scene>
             </Scene>
+
+            <Scene
+                key="messageWindow"
+                component={MessageWindow}
+            />
+
         </Scene>
     </Router>
 );
 
 export default RouterComponent;
+

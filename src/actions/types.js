@@ -16,4 +16,9 @@ export const USER_SEARCH_UPDATE = 'user_search_update';
 
 export const MESSAGELIST_FETCH_SUCCESS = 'messagelist_fetch_success';
 export const CONVERSATION_FETCH_SUCCESS = 'conversation_fetch_success';
+export const SEND_MESSAGE_ME = 'send_message_me';
+export const SEND_MESSAGE_THEM = 'send_message_them';
+export const SEND_MESSAGE_ERROR = 'send_message_error';
+export const MESSAGE_UPDATE = 'message_update';
+export const SENDING_MESSAGE = 'sending_message';
 

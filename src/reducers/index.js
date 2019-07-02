@@ -4,11 +4,13 @@ import UserReducer from './UserReducer';
 import UserFetchReducer from './UserFetchReducer';
 import MessageListReducer from './MessageListReducer';
 import PersonMessageReducer from './PersonMessageReducer';
+import SendMessageReducer from './SendMessageReducer';
 
 export default combineReducers({
     auth: AuthReducer,
     users: UserReducer,
     fetchs: UserFetchReducer,
     messages: MessageListReducer,
-    personMessages: PersonMessageReducer
+    personMessages: PersonMessageReducer,
+    sendMessages: SendMessageReducer
 });
