@@ -40,12 +40,11 @@ export const fetchConversation = (otherUserId) => {
     };
 };
 
-export const sendMessageToMe = (otherUserId, message, time, nickname) => {
+export const sendMessageToMe = (otherUserId, message, nickname) => {
     const { currentUser } = firebase.auth();
     return (dispatch) => {
-        dispatch({ type: SENDING_MESSAGE });
         firebase.database().ref(`/app/conversation/${currentUser.uid}/${otherUserId}`)
-            .push(message, time, currentUser.uid)
+            .push({ message })
             .then(() => {
                 dispatch({ type: SEND_MESSAGE_ME });
             })
@@ -57,13 +56,12 @@ export const sendMessageToMe = (otherUserId, message, time, nickname) => {
     };
 };
 
-export const sendMessageToThem = (otherUserId, message, time, nickname) => {
+export const sendMessageToThem = (otherUserId, message, nickname) => {
     const { currentUser } = firebase.auth();
-
     return (dispatch) => {
         dispatch({ type: SENDING_MESSAGE });
         firebase.database().ref(`/app/conversation/${otherUserId}/${currentUser.uid}`)
-            .push(message, time, currentUser.uid)
+            .push({ message })
             .then(() => {
                 dispatch({ type: SEND_MESSAGE_THEM });
             })

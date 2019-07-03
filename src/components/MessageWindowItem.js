@@ -23,11 +23,6 @@ class MessageWindowItem extends Component {
             );
     }
 
-    renderSendButton() {
-        
-    }
-
-
     render() {
         return (
             <View>

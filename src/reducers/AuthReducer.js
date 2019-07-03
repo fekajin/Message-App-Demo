@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { EMAIL_CHANGED,
    PASSWORD_CHANGED,
     LOGIN_USER_SUCCESS,
@@ -7,7 +8,7 @@ import { EMAIL_CHANGED,
      SIGN_USER_SUCCESS
     } from '../actions/types';
 
-const INITIAL_STATE = { email: '', password: '', user: null, error: ' ', loading: false };
+const INITIAL_STATE = { email: 'example@mail.com', password: 'celal1997', user: null, error: ' ', loading: false };
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {

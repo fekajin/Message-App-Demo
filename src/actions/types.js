@@ -22,3 +22,5 @@ export const SEND_MESSAGE_ERROR = 'send_message_error';
 export const MESSAGE_UPDATE = 'message_update';
 export const SENDING_MESSAGE = 'sending_message';
 
+export const PREV_SCENE = 'prev_scene';
+

@@ -10,7 +10,7 @@ const myIcon = <Icon name="tooltip-account" size={50} color="blue" />;
 
 class SearchMainItem extends Component {
     onRowPress() {
-        Actions.messageWindow({ fetch: this.props.fetch }); //id nickname phone
+        Actions.messageWindow({ fetch: this.props.fetch }); //id nickname phone uid
     }
     render() {
         const { nickname } = this.props.fetch;

@@ -8,17 +8,17 @@ import { CardSection } from './common';
 
 class MessageMainItem extends Component {
     onRowPress() {
-        Actions.messageWindow({ fetch: this.props.fetch });
+        Actions.messageWindow({ mainMessage: this.props.message }); // val: name , uid
     }
     render() {
-        const { name, surname } = this.props.fetch;
+        const { val } = this.props.message;
 
         return (
             <TouchableWithoutFeedback onPress={this.onRowPress.bind(this)}>
                 <View>
                     <CardSection>
                         <Text style={styles.titleStyle}>
-                            { name + ' ' + surname } 
+                            { val } 
                         </Text>
                     </CardSection>
                 </View>

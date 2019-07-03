@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React, { Component } from 'react';
+import React, { Component, } from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { ListView } from 'react-native';
@@ -29,18 +29,19 @@ class MessageMain extends Component {
 
     render() {
         return (
-           <ListView
-           enableEmptySections
-           dataSource={this.DataSource}
-           renderRow={this.renderRow}
-           />
+            <ListView
+                enableEmptySections
+                dataSource={this.DataSource}
+                renderRow={this.renderRow}
+            />
         );
     }
 }
 
 const mapStateToProps = state => {
-    const messages = _.map(state.messages, (val, uid) => ({ ...val, uid }));
+    const messages = _.map(state.messages, (val, uid) => ({ val, uid }));
+    console.log(messages);
     return { messages };
-    };
+};
 
 export default connect(mapStateToProps, { messagesFetchByUser })(MessageMain);

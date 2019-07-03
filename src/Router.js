@@ -72,7 +72,6 @@ const RouterComponent = () => (
                     hideNavBar={false}
                 >
                     <Scene
-                        initial
                         key="messageScreen"
                         component={MessageMain}
                     />

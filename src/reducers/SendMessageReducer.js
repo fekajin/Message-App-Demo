@@ -3,6 +3,7 @@ import {
     SEND_MESSAGE_ME,
     SEND_MESSAGE_THEM,
     MESSAGE_UPDATE,
+    PREV_SCENE,
     SENDING_MESSAGE
 } from '../actions/types';
 
@@ -10,7 +11,8 @@ const INITIAL_STATE = {
     message: '',
     otherUserId: '',
     time: '',
-    loading: false
+    loading: false,
+    prevScene: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -25,6 +27,8 @@ export default (state = INITIAL_STATE, action) => {
             return INITIAL_STATE;
         case SENDING_MESSAGE:
             return { ...state, loading: true };
+            case PREV_SCENE:
+                return { ...state, prevScene: action.payload };
         default:
             return state;
     }
