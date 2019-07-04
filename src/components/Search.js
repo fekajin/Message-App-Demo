@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { ListView, View } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { userSearch, searchInputUpdate } from '../actions';
 import SearchMainItem from './SearchMainItem';
@@ -18,9 +17,6 @@ class Search extends Component {
     //     this.createDataSource(fetchs);
     //     this.renderRow();
     // }
-    componentDidMount() {
-        console.log(Actions.currentScene);
-    }
 
     onSearchChange(text) {
         this.props.searchInputUpdate(text);
@@ -32,7 +28,6 @@ class Search extends Component {
 
     UNSAFE_componentWillReceiveProps(nextProps) {
         this.createDataSource(nextProps);
-        console.log(nextProps);
     }
 
     createDataSource(data) {

@@ -74,6 +74,7 @@ const RouterComponent = () => (
                     <Scene
                         key="messageScreen"
                         component={MessageMain}
+                        initial
                     />
                 </Scene>
 
@@ -84,7 +85,6 @@ const RouterComponent = () => (
                     <Scene
                         key="searchScreen"
                         component={Search}
-                        hideNavBar={false}
                     />
                 </Scene>
 

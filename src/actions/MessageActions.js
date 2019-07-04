@@ -33,8 +33,9 @@ export const fetchConversation = (otherUserId) => {
     const { currentUser } = firebase.auth();
 
     return (dispatch) => {
-        firebase.database().ref(`/app/conversations/${currentUser.uid}/${otherUserId}`)
+        firebase.database().ref(`/app/conversation/${currentUser.uid}/${otherUserId}`)
             .on('value', snapshot => {
+                console.log('action', snapshot.val());
                 dispatch({ type: CONVERSATION_FETCH_SUCCESS, payload: snapshot.val() });
             });
     };
@@ -42,9 +43,14 @@ export const fetchConversation = (otherUserId) => {
 
 export const sendMessageToMe = (otherUserId, message, nickname) => {
     const { currentUser } = firebase.auth();
+    if (message === '') {
+        return (dispatch) => {
+            dispatch({ type: SEND_MESSAGE_ERROR });
+        };
+    }
     return (dispatch) => {
         firebase.database().ref(`/app/conversation/${currentUser.uid}/${otherUserId}`)
-            .push({ message })
+            .push({ message, count: 1 })
             .then(() => {
                 dispatch({ type: SEND_MESSAGE_ME });
             })
@@ -61,7 +67,7 @@ export const sendMessageToThem = (otherUserId, message, nickname) => {
     return (dispatch) => {
         dispatch({ type: SENDING_MESSAGE });
         firebase.database().ref(`/app/conversation/${otherUserId}/${currentUser.uid}`)
-            .push({ message })
+            .push({ message, count: 2 })
             .then(() => {
                 dispatch({ type: SEND_MESSAGE_THEM });
             })

@@ -2,10 +2,11 @@
 import React, { Component, } from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { ListView } from 'react-native';
+import { ListView, ImageBackground } from 'react-native';
 import { messagesFetchByUser } from '../actions';
 import MessageMainItem from './MessageMainItem';
 
+const image = require('../images/mesaj.jpg');
 
 class MessageMain extends Component {
 
@@ -16,6 +17,7 @@ class MessageMain extends Component {
 
     UNSAFE_componentWillReceiveProps(nextProps) {
         this.createDataSource(nextProps);
+        console.log('deneme');
     }
     createDataSource({ messages }) {
         const ds = new ListView.DataSource({
@@ -29,11 +31,16 @@ class MessageMain extends Component {
 
     render() {
         return (
-            <ListView
-                enableEmptySections
-                dataSource={this.DataSource}
-                renderRow={this.renderRow}
-            />
+            <ImageBackground
+                source={image}
+                style={{ width: '100%', height: '100%' }}
+            >
+                <ListView
+                    enableEmptySections
+                    dataSource={this.DataSource}
+                    renderRow={this.renderRow}
+                />
+            </ImageBackground>
         );
     }
 }
