@@ -151,7 +151,8 @@ const styles = {
         borderWidth: 1,
         borderRadius: 12,
         marginLeft: 50,
-        marginBottom: 4,
+        marginRight: 5,
+        marginBottom: 7,
         alignItems: 'center',
         opacity: 0.6,
         backgroundColor: '#85DCFF'
@@ -162,7 +163,8 @@ const styles = {
         borderWidth: 1,
         borderRadius: 12,
         marginRight: 50,
-        marginBottom: 4,
+        marginLeft: 5,
+        marginBottom: 7,
         alignItems: 'center',
         opacity: 0.6,
         backgroundColor: 'pink'

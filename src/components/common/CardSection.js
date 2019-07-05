@@ -17,7 +17,8 @@ const style = {
         borderColor: '#ddd',
         position: 'relative',
         marginTop: 2,
-        opacity: 0.7
+        opacity: 0.7,
+        borderRadius: 1
     }
 };
 

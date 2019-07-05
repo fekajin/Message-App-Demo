@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, ImageBackground } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Card, CardSection, Input, Button } from './common';
 import { emailChanged } from '../actions';
 
 const myIcon = <Icon name="key-change" size={100} color="#900" />;
+const forgotImage = require('../images/forgot.jpg');
 
 class ForgotPassForm extends Component {
 
@@ -23,7 +24,10 @@ class ForgotPassForm extends Component {
 
     render() {
         return (
-            <View>
+            <ImageBackground
+            source={forgotImage}
+            style={{ height: '100%', width: '100%' }}
+            >
             <View style={{ alignItems: 'center' }}>
             {myIcon}
             </View>
@@ -42,7 +46,7 @@ class ForgotPassForm extends Component {
                 </CardSection>
 
             </Card>
-            </View>
+            </ImageBackground>
         );
     }
 }

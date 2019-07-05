@@ -2,13 +2,14 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { ListView, View } from 'react-native';
+import { ListView, View, ImageBackground } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { userSearch, searchInputUpdate } from '../actions';
 import SearchMainItem from './SearchMainItem';
 import { CardSection, Input, Button } from './common';
 
 const myIcon = <Icon name="account-search" size={30} color="blue" />;
+const imageSearch = require('../images/search.jpg');
 
 class Search extends Component {
 
@@ -48,28 +49,32 @@ class Search extends Component {
 
     render() {
         return (
-            <View style={{ paddingTop: 15 }} >
-                <CardSection>
-                    <Input
-                        keyboardType="default"
-                        label="Nick Name  :"
-                        placeholder="xxxArifxxx"
-                        value={this.props.nickname}
-                        onChangeText={this.onSearchChange.bind(this)}
-                    />
-                </CardSection>
-                <CardSection>
-                    <Button onPress={this.SearchUser.bind(this)}>
-                        {myIcon}  Search
+            <ImageBackground
+                source={imageSearch}
+                style={{ width: '100%', height: '100%' }}
+            >
+                <View style={{ paddingTop: 15 }} >
+                    <CardSection>
+                        <Input
+                            keyboardType="default"
+                            label="Nick Name  :"
+                            placeholder="xxxArifxxx"
+                            value={this.props.nickname}
+                            onChangeText={this.onSearchChange.bind(this)}
+                        />
+                    </CardSection>
+                    <CardSection>
+                        <Button onPress={this.SearchUser.bind(this)}>
+                            {myIcon}  Search
                     </Button>
-                </CardSection>
-                <ListView
-                    enableEmptySections
-                    dataSource={this.DataSource}
-                    renderRow={this.renderRow}
-                />
-            </View>
-
+                    </CardSection>
+                    <ListView
+                        enableEmptySections
+                        dataSource={this.DataSource}
+                        renderRow={this.renderRow}
+                    />
+                </View>
+            </ImageBackground>
         );
     }
 }

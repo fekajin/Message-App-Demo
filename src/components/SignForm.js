@@ -37,7 +37,7 @@ class SignForm extends Component {
     renderError() {
         if (this.props.error) {
             return (
-                <View style={{ backgroundColor: 'white' }}>
+                <View style={{ backgroundColor: 'white', opacity: 0.7 }}>
                     <Text style={styles.errorTextStyle}>
                         {this.props.error}
                     </Text>
@@ -53,7 +53,7 @@ class SignForm extends Component {
                 style={{ width: '100%', height: '100%' }}
             >
                 <ScrollView>
-                    <Card>
+                    <Card style={{ paddingLeft: 20 }}>
                         <CardSection>
                             <Input
                                 keyboardType="default"
@@ -97,7 +97,7 @@ class SignForm extends Component {
                         <CardSection>
                             <Input
                                 keyboardType="default"
-                                label="nickname No"
+                                label="Nickname"
                                 placeholder="32265514182"
                                 value={this.props.nickname}
                                 onChangeText={value => this.props.userInputUpdate({ prop: 'nickname', value })}
