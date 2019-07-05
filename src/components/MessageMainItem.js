@@ -11,8 +11,9 @@ const userIcon = <Icon name="user" size={35} color="black" />;
 
 class MessageMainItem extends Component {
     onRowPress() {
-        Actions.messageWindow({ mainMessage: this.props.message }); // val: name , uid
-        console.log('mesaj', this.props.message);
+        const { message } = this.props;
+        Actions.messageWindow({ mainMessage: message, title: message.val }); // val: nickname , uid
+        console.log('mesaj', message);
     }
     render() {
         const { val } = this.props.message;

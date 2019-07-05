@@ -1,12 +1,13 @@
 /* eslint-disable react/self-closing-comp */
 import React, { Component } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, ImageBackground } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { emailChanged, passwordChanged, loginUser } from '../actions';
 import { Card, CardSection, Input, Button, Spinner } from './common';
 
 const myIcon = <Icon name="cellphone-message" size={100} color="#900" />;
+const imageLogin = require('../images/login.jpg');
 
 class LoginForm extends Component {
 
@@ -37,7 +38,7 @@ class LoginForm extends Component {
     renderError() {
         if (this.props.error) {
             return (
-                <View style={{ backgroundColor: 'white' }}>
+                <View style={{ backgroundColor: 'white', opacity: 0.7 }}>
                     <Text style={styles.errorTextStyle}>
                         {this.props.error}
                     </Text>
@@ -49,39 +50,42 @@ class LoginForm extends Component {
 
     render() {
         return (
-            <ScrollView>
-                <View>
-                    <View style={{ alignItems: 'center' }}>
-                        {myIcon}
-                    </View>
-                    <Card >
-                        <CardSection>
-                            <Input
-                                label="Mail"
-                                placeholder="example@mail.com"
-                                onChangeText={this.oneEmailChange.bind(this)}
-                                value={this.props.email}
-                            />
-                        </CardSection>
+            <ImageBackground
+                source={imageLogin}
+                style={{ width: '100%', height: '100%' }}
+            >
+                <ScrollView>
+                        <View style={{ alignItems: 'center' }}>
+                            {myIcon}
+                        </View>
+                        <Card >
+                            <CardSection>
+                                <Input
+                                    label="Mail"
+                                    placeholder="example@mail.com"
+                                    onChangeText={this.oneEmailChange.bind(this)}
+                                    value={this.props.email}
+                                />
+                            </CardSection>
 
-                        <CardSection>
-                            <Input
-                                keyboardType="default"
-                                secureTextEntry
-                                label="Password"
-                                placeholder='password'
-                                onChangeText={this.onPasswordChange.bind(this)}
-                                value={this.props.password}
-                            />
-                        </CardSection>
-                        {this.renderError()}
-                        <CardSection>
-                            {this.renderButtonLogin()}
-                        </CardSection>
+                            <CardSection>
+                                <Input
+                                    keyboardType="default"
+                                    secureTextEntry
+                                    label="Password"
+                                    placeholder='password'
+                                    onChangeText={this.onPasswordChange.bind(this)}
+                                    value={this.props.password}
+                                />
+                            </CardSection>
+                            {this.renderError()}
+                            <CardSection>
+                                {this.renderButtonLogin()}
+                            </CardSection>
 
-                    </Card>
-                </View>
-            </ScrollView>
+                        </Card>
+                </ScrollView>
+            </ImageBackground>
         );
     }
 }

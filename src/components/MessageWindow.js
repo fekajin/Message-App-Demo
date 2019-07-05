@@ -4,7 +4,7 @@
 /* eslint-disable camelcase */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { FlatList, View, Text, TextInput, KeyboardAvoidingView } from 'react-native';
+import { FlatList, View, Text, TextInput, KeyboardAvoidingView, ImageBackground, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import _ from 'lodash';
 import {
@@ -14,7 +14,9 @@ import {
     sendMessageToThem,
     userFetch
 } from '../actions';
-import { Spinner, Button } from './common';
+import { Spinner } from './common';
+
+const imageSea = require('../images/resim.jpg');
 
 const replyIcon = <Icon name={'reply'} size={35} color={'green'} />;
 
@@ -23,9 +25,11 @@ class MessageWindow extends Component {
     constructor(props) {
         super(props);
         if (this.props.fetch === undefined) {
-            this.props.fetchConversation(this.props.mainMessage.uid);
+            const { uid } = this.props.mainMessage;
+            this.props.fetchConversation(uid);
         } else {
-            this.props.fetchConversation(this.props.fetch.id);
+            const { id } = this.props.fetch;
+            this.props.fetchConversation(id);
         }
         this.props.userFetch();
     }
@@ -93,41 +97,50 @@ class MessageWindow extends Component {
             return <Spinner size="large" />;
         }
         return (
-            <Button onPress={this.onButtonPressSend.bind(this)}>
+
+            <TouchableOpacity onPress={this.onButtonPressSend.bind(this)} >
                 {replyIcon}
-            </Button>
+            </TouchableOpacity>
         );
     }
 
     render() {
         const { inputStyle } = styles;
         return (
-            <KeyboardAvoidingView style={{ flex: 1 }} >
-                <View style={{ flex: 9 }}>
-                    <FlatList
-                        data={this.props.personMessages}
-                        extraData={this.props.personMessages}
-                        keyExtractor={(index, key) => `${index}${key}`}
-                        ListEmptyComponent={this.listEmptyComponent}
-                        renderItem={this.renderItem}
-                        ref={ref => this.flatList = ref}
-                        onContentSizeChange={() => this.flatList.scrollToEnd({ animated: true })}
-                        onLayout={() => this.flatList.scrollToEnd({ animated: true })}
-                    />
-                </View>
-                <View style={{ flex: 1.4, flexDirection: 'row', paddingBottom: 5, paddingLeft: 5, paddingTop: 5 }}>
-                    <TextInput
-                        keyboardType="default"
-                        placeholder="xxxArifxxx"
-                        autoCorrect={false}
-                        style={inputStyle}
-                        value={this.props.message}
-                        onChangeText={this.updateMessage.bind(this)}
-                        onFocus={() => { this.getKeyboard(); }}
-                    />
-                    {this.renderSendButton()}
-                </View>
-            </KeyboardAvoidingView>
+            <ImageBackground
+                source={imageSea}
+                style={{ width: '100%', height: '100%' }}
+            >
+                <KeyboardAvoidingView style={{ flex: 1 }} >
+                    <View style={{ flex: 9 }}>
+                        <FlatList
+                            data={this.props.personMessages}
+                            extraData={this.props.personMessages}
+                            keyExtractor={(index, key) => `${index}${key}`}
+                            ListEmptyComponent={this.listEmptyComponent}
+                            renderItem={this.renderItem}
+                            ref={ref => this.flatList = ref}
+                            onContentSizeChange={() => this.flatList.scrollToEnd({ animated: true })}
+                            onLayout={() => this.flatList.scrollToEnd({ animated: true })}
+                        />
+                    </View>
+                    <View style={styles.writeBoxStyle}>
+                        <TextInput
+                            keyboardType="default"
+                            placeholder="xxxArifxxx"
+                            autoCorrect={false}
+                            style={inputStyle}
+                            multiline
+                            numberOfLines={4}
+                            value={this.props.message}
+                            allowFontScaling={false}
+                            onChangeText={this.updateMessage.bind(this)}
+                            onFocus={() => { this.getKeyboard(); }}
+                        />
+                        {this.renderSendButton()}
+                    </View>
+                </KeyboardAvoidingView>
+            </ImageBackground>
         );
     }
 }
@@ -140,6 +153,8 @@ const styles = {
         marginLeft: 50,
         marginBottom: 4,
         alignItems: 'center',
+        opacity: 0.6,
+        backgroundColor: '#85DCFF'
     },
 
     guestViewStyle: {
@@ -148,35 +163,57 @@ const styles = {
         borderRadius: 12,
         marginRight: 50,
         marginBottom: 4,
-        alignItems: 'center'
+        alignItems: 'center',
+        opacity: 0.6,
+        backgroundColor: 'pink'
     },
 
     ownerTextStyle: {
         fontSize: 20,
         padding: 5,
-        color: '#1F73FC',
+        color: 'rgb(0,0,0)',
         borderRadius: 15,
-        borderColor: '#1F73FC'
+        borderColor: '#1F73FC',
+        opacity: 1,
+        fontWeight: 'bold'
     },
 
     guestTextStyle: {
         fontSize: 20,
         padding: 5,
-        color: 'black',
+        color: 'rgb(0,0,0)',
         borderRadius: 15,
-        borderColor: 'black'
+        borderColor: 'black',
+        fontWeight: 'bold',
+        opacity: 1
+    },
+
+    writeBoxStyle: {
+        flex: 1.4,
+        flexDirection: 'row',
+        backgroundColor: '#47DCE8',
+        borderColor: 'black',
+        borderWidth: 2,
+        borderRadius: 15
     },
 
     inputStyle: {
-        color: '#000',
+        color: 'blue',
         paddingRight: 5,
         paddingLeft: 5,
         fontSize: 15,
-        lineHeight: 23,
+        lineHeight: 13,
         flex: 7.5,
-        borderWidth: 0.7,
-        borderRadius: 5,
-        borderColor: 'green'
+        borderWidth: 3,
+        borderRadius: 10,
+        borderColor: 'green',
+        fontWeight: 'bold'
+    },
+
+    buttonStyle: {
+        borderColor: 'green',
+        borderWidth: 3,
+        borderRadius: 20
     }
 };
 

@@ -1,12 +1,14 @@
 /* eslint-disable max-len */
 import React, { Component } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, ImageBackground } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { userCreate, userInputUpdate, userDelete, signUser, emailChanged, passwordChanged } from '../actions';
 import { Card, CardSection, Input, Button, Spinner } from './common';
 
 const myIcon = <Icon name="clipboard-account" size={50} color="blue" />;
+const image = require('../images/sign.jpg');
+
 class SignForm extends Component {
 
     oneEmailChange(text) {
@@ -46,88 +48,93 @@ class SignForm extends Component {
 
     render() {
         return (
-            <ScrollView>
-            <Card>
-                <CardSection>
-                    <Input
-                        keyboardType="default"
-                        label="Name"
-                        placeholder="Arif"
-                        value={this.props.name}
-                        onChangeText={value => this.props.userInputUpdate({ prop: 'name', value })}
-                    />
-                </CardSection>
+            <ImageBackground
+                source={image}
+                style={{ width: '100%', height: '100%' }}
+            >
+                <ScrollView>
+                    <Card>
+                        <CardSection>
+                            <Input
+                                keyboardType="default"
+                                label="Name"
+                                placeholder="Arif"
+                                value={this.props.name}
+                                onChangeText={value => this.props.userInputUpdate({ prop: 'name', value })}
+                            />
+                        </CardSection>
 
-                <CardSection>
-                    <Input
-                        keyboardType="default"
-                        label="Surname"
-                        placeholder="Erdem"
-                        value={this.props.surname}
-                        onChangeText={value => this.props.userInputUpdate({ prop: 'surname', value })}
-                    />
-                </CardSection>
+                        <CardSection>
+                            <Input
+                                keyboardType="default"
+                                label="Surname"
+                                placeholder="Erdem"
+                                value={this.props.surname}
+                                onChangeText={value => this.props.userInputUpdate({ prop: 'surname', value })}
+                            />
+                        </CardSection>
 
-                <CardSection>
-                    <Input
-                        keyboardType="numeric"
-                        label="Phone"
-                        placeholder="+90-555-333-44-99"
-                        value={this.props.phone}
-                        onChangeText={value => this.props.userInputUpdate({ prop: 'phone', value })}
-                    />
-                </CardSection>
+                        <CardSection>
+                            <Input
+                                keyboardType="numeric"
+                                label="Phone"
+                                placeholder="+90-555-333-44-99"
+                                value={this.props.phone}
+                                onChangeText={value => this.props.userInputUpdate({ prop: 'phone', value })}
+                            />
+                        </CardSection>
 
-                <CardSection>
-                    <Input
-                        keyboardType="default"
-                        label="Adress"
-                        placeholder="red street - no:7 / Manchester/ England"
-                        value={this.props.adress}
-                        onChangeText={value => this.props.userInputUpdate({ prop: 'adress', value })}
-                    />
-                </CardSection>
+                        <CardSection>
+                            <Input
+                                keyboardType="default"
+                                label="Adress"
+                                placeholder="red street - no:7 / Manchester/ England"
+                                value={this.props.adress}
+                                onChangeText={value => this.props.userInputUpdate({ prop: 'adress', value })}
+                            />
+                        </CardSection>
 
-                <CardSection>
-                    <Input
-                        keyboardType="default"
-                        label="nickname No"
-                        placeholder="32265514182"
-                        value={this.props.nickname}
-                        onChangeText={value => this.props.userInputUpdate({ prop: 'nickname', value })}
-                    />
-                </CardSection>
+                        <CardSection>
+                            <Input
+                                keyboardType="default"
+                                label="nickname No"
+                                placeholder="32265514182"
+                                value={this.props.nickname}
+                                onChangeText={value => this.props.userInputUpdate({ prop: 'nickname', value })}
+                            />
+                        </CardSection>
 
-                <Card>
-                    <CardSection>
-                        <Input
-                            keyboardType="default"
-                            label="Mail"
-                            placeholder="example@mail.com"
-                            onChangeText={this.oneEmailChange.bind(this)}
-                            value={this.props.email}
-                        />
-                    </CardSection>
+                        <Card>
+                            <CardSection>
+                                <Input
+                                    keyboardType="default"
+                                    label="Mail"
+                                    placeholder="example@mail.com"
+                                    onChangeText={this.oneEmailChange.bind(this)}
+                                    value={this.props.email}
+                                />
+                            </CardSection>
 
-                    <CardSection>
-                        <Input
-                            keyboardType="default"
-                            secureTextEntry
-                            label="Password"
-                            placeholder='password'
-                            onChangeText={this.onPasswordChange.bind(this)}
-                            value={this.props.password}
-                        />
-                    </CardSection>
-                    {this.renderError()}
-                    <CardSection>
-                        {myIcon}
-                        {this.renderButtonSignIn()}
-                    </CardSection>
+                            <CardSection>
+                                <Input
+                                    keyboardType="default"
+                                    secureTextEntry
+                                    label="Password"
+                                    placeholder='password'
+                                    onChangeText={this.onPasswordChange.bind(this)}
+                                    value={this.props.password}
+                                />
+                            </CardSection>
+                            {this.renderError()}
+                            <CardSection>
+                                {myIcon}
+                                {this.renderButtonSignIn()}
+                            </CardSection>
 
-                </Card>
-            </Card>
-            </ScrollView>
+                        </Card>
+                    </Card>
+                </ScrollView>
+            </ImageBackground>
         );
     }
 }
