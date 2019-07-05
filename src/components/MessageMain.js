@@ -47,7 +47,6 @@ class MessageMain extends Component {
 
 const mapStateToProps = state => {
     const messages = _.map(state.messages, (val, uid) => ({ val, uid }));
-    console.log(messages);
     return { messages };
 };
 
