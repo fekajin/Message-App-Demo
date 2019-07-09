@@ -196,13 +196,15 @@ const styles = StyleSheet.create({
 
     writeBoxStyle: {
         backgroundColor: '#CFD6E6',
+        borderEndColor: 'transparent',
         flexDirection: 'row',
         alignItems: 'center',
         height: 70,
         borderColor: 'black',
         borderWidth: 2,
-        borderRadius: 15,
-        marginBottom: 4
+        borderRadius: 25,
+        marginBottom: 4,
+        marginLeft: 2
     },
 
     inputStyle: {
@@ -210,9 +212,6 @@ const styles = StyleSheet.create({
         paddingRight: 5,
         paddingLeft: 5,
         fontSize: 18,
-        borderWidth: 3,
-        borderRadius: 12,
-        borderColor: 'green',
         fontWeight: 'bold',
         marginRight: 45
     },
