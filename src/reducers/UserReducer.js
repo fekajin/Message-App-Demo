@@ -11,7 +11,8 @@ const INITIAL_STATE = {
   surname: '',
   phone: '',
   adress: '',
-  nickname: ''
+  nickname: '',
+  searchName: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -21,7 +22,7 @@ export default (state = INITIAL_STATE, action) => {
     case USER_INPUT_UPDATE:
       return { ...state, [action.payload.prop]: action.payload.value };
     case USER_SEARCH_UPDATE:
-      return { ...state, nickname: action.payload };
+      return { ...state, searchName: action.payload };
     case USER_FETCH:
       return action.payload;
     case USER_CREATE:

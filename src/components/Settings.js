@@ -99,7 +99,7 @@ class UserInfo extends Component {
                        </Button>
                     </CardSection>
                 </Card>
-                <CardSection style={{ marginTop: 160, margin: 100, opacity: 0.7, backgroundColor: 'red', borderRadius: 20 }} >
+                <CardSection style={{ marginTop: 160, margin: 100, opacity: 0.7, backgroundColor: 'black', borderRadius: 20 }} >
                     <Button onPress={this.onExitButtonPress.bind(this)}>
                         Exit
                        </Button>

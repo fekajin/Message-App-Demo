@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { ListView, View, ImageBackground } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { userSearch, searchInputUpdate } from '../actions';
+import { userSearch, searchInputUpdate, userFetch } from '../actions';
 import SearchMainItem from './SearchMainItem';
 import { CardSection, Input, Button } from './common';
 
@@ -13,17 +13,12 @@ const imageSearch = require('../images/search.jpg');
 
 class Search extends Component {
 
-    // componentDidUpdate() {
-    //     const { fetchs } = this.props;
-    //     this.createDataSource(fetchs);
-    //     this.renderRow();
-    // }
-
     onSearchChange(text) {
         this.props.searchInputUpdate(text);
     }
 
     UNSAFE_componentWillMount() {
+        this.props.userFetch();
         this.createDataSource(this.props);
     }
 
@@ -43,8 +38,10 @@ class Search extends Component {
     }
 
     renderRow(data) {
-        console.log(data);
-        return <SearchMainItem fetch={data} />;
+        if (this.props.nickname === data.nickname) {
+            return <SearchMainItem fetch='ben' />;
+        } 
+            return <SearchMainItem fetch={data} />;
     }
 
     render() {
@@ -59,11 +56,11 @@ class Search extends Component {
                             keyboardType="default"
                             label="Nick Name  :"
                             placeholder="xxxArifxxx"
-                            value={this.props.nickname}
+                            value={this.props.searchName}
                             onChangeText={this.onSearchChange.bind(this)}
                         />
                     </CardSection>
-                    <CardSection>
+                    <CardSection style={{ marginTop: 10, margin: 100, marginBottom: 20 }}>
                         <Button onPress={this.SearchUser.bind(this)}>
                             {myIcon}  Search
                     </Button>
@@ -71,7 +68,7 @@ class Search extends Component {
                     <ListView
                         enableEmptySections
                         dataSource={this.DataSource}
-                        renderRow={this.renderRow}
+                        renderRow={this.renderRow.bind(this)}
                     />
                 </View>
             </ImageBackground>
@@ -81,12 +78,13 @@ class Search extends Component {
 
 const mapStateToProps = state => {
     const fetchs = _.map(state.fetchs, (val, uid) => ({ ...val, uid }));
-    const { nickname } = state.users;
-    return { fetchs, nickname };
+    const { nickname, searchName } = state.users;
+    return { fetchs, nickname, searchName };
 };
 
 export default connect(mapStateToProps,
     {
         userSearch,
-        searchInputUpdate
+        searchInputUpdate,
+        userFetch
     })(Search);

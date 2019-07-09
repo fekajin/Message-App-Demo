@@ -10,22 +10,28 @@ const myIcon = <Icon name="tooltip-account" size={50} color="blue" />;
 
 class SearchMainItem extends Component {
     onRowPress() {
-        const { fetch } = this.props;
-        Actions.messageWindow({ fetch, title: fetch.nickname }); //id nickname phone uid
+        const { nickname } = this.props.fetch;
+        Actions.messageWindow({ fetch: this.props.fetch, title: nickname }); //id nickname phone uid
+    }
+    renderUser() {
+        const { nickname } = this.props.fetch;
+        if (this.props.fetch !== 'ben') {
+            return (
+                <CardSection>
+                    {myIcon}
+                    <Text style={styles.titleStyle}>
+                        {nickname}
+                    </Text>
+                </CardSection>
+            );
+        }
     }
     render() {
-        const { nickname } = this.props.fetch;
-
         return (
             <ScrollView>
                 <TouchableWithoutFeedback onPress={this.onRowPress.bind(this)}>
                     <View>
-                        <CardSection>
-                            {myIcon}
-                            <Text style={styles.titleStyle}>
-                                {nickname}
-                            </Text>
-                        </CardSection>
+                        {this.renderUser()}
                     </View>
                 </TouchableWithoutFeedback>
             </ScrollView>

@@ -58,14 +58,18 @@ export const userCreate = ({ name, surname, phone, adress, nickname, email, pass
             .then(() => {
                 const { currentUser } = firebase.auth();
                 firebase.database().ref(`/app/users/${currentUser.uid}`)
-                    .set({ name, surname, phone, adress, nickname, email, password })
+                    .set({ name, surname, phone, adress, nickname })
                     .then(() => {
                         const id = currentUser.uid;
                         firebase.database().ref('/app/userNicks')
-                            .push({ nickname, phone, id });
-                        dispatch({ type: USER_CREATE });
-                        dispatch({ type: LOGIN_USER_SUCCESS });
-                        Actions.main();
+                            .push({ nickname, phone, id })
+                            .then(() => {
+                                firebase.database().ref(`/app/userLog/${currentUser.uid}`)
+                                    .set({ email, password });
+                                dispatch({ type: USER_CREATE });
+                                dispatch({ type: LOGIN_USER_SUCCESS });
+                                Actions.main();
+                            });
                     })
                     .catch(() =>
                         dispatch({ type: LOGIN_USER_UNSUCCESS })

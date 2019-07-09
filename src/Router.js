@@ -24,8 +24,8 @@ const RouterComponent = () => (
             headerLayoutPreset='center'
             activeBackgroundColor="gray"
             activeTintColor="white"
-            labelStyle={{ fontSize: 15, paddingBottom: 5 }}
-            tabBarStyle={{ borderWidth: 10, borderRadius: 15, borderColor: 'white' }}
+            labelStyle={{ fontSize: 15, marginBottom: 12 }}
+            tabBarStyle={{ borderWidth: 2, borderColor: 'white' }}
         >
             <Scene
                 key='LogIn'

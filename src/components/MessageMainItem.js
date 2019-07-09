@@ -13,7 +13,6 @@ class MessageMainItem extends Component {
     onRowPress() {
         const { message } = this.props;
         Actions.messageWindow({ mainMessage: message, title: message.val }); // val: nickname , uid
-        console.log('mesaj', message);
     }
     render() {
         const { val } = this.props.message;
