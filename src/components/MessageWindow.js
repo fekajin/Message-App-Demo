@@ -4,8 +4,9 @@
 /* eslint-disable camelcase */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { FlatList, View, Text, TextInput, KeyboardAvoidingView, ImageBackground, TouchableOpacity } from 'react-native';
+import { FlatList, View, Text, TextInput, ImageBackground, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import _ from 'lodash';
 import {
     fetchConversation,
@@ -36,17 +37,19 @@ class MessageWindow extends Component {
 
     onButtonPressSend() {
         const { message } = this.props;
-        if (this.props.fetch === undefined) {
-            const { uid, val } = this.props.mainMessage;
-            this.props.sendMessageToThem(uid, message, this.props.nickname);
-            this.props.sendMessageToMe(uid, message, val);
-        } else {
-            const { id, nickname } = this.props.fetch;
-            this.props.sendMessageToThem(id, message, this.props.nickname);
-            this.props.sendMessageToMe(id, message, nickname);
+        console.log(message);
+        if (message !== null) {
+            if (this.props.fetch === undefined) {
+                const { uid, val } = this.props.mainMessage;
+                this.props.sendMessageToThem(uid, message, this.props.nickname);
+                this.props.sendMessageToMe(uid, message, val);
+            } else {
+                const { id, nickname } = this.props.fetch;
+                this.props.sendMessageToThem(id, message, this.props.nickname);
+                this.props.sendMessageToMe(id, message, nickname);
+            }
         }
     }
-
     // getData() {
     //     const { personMessages } = this.props;
     //     const tempData = [];
@@ -72,7 +75,7 @@ class MessageWindow extends Component {
     _listEmptyComponent = () => {
         return (
             <View>
-                <Text>  Hadi Merhaba Yaz!</Text>
+                <Text>  Hadi Merhaba Yaz! </Text>
             </View>
         );
     }
@@ -94,11 +97,11 @@ class MessageWindow extends Component {
 
     renderSendButton() {
         if (this.props.loading) {
-            return <Spinner size="large" />;
+            return <Spinner style={styles.buttonStyle} size="large" />;
         }
         return (
 
-            <TouchableOpacity onPress={this.onButtonPressSend.bind(this)} >
+            <TouchableOpacity style={styles.buttonStyle} onPress={this.onButtonPressSend.bind(this)} >
                 {replyIcon}
             </TouchableOpacity>
         );
@@ -111,8 +114,8 @@ class MessageWindow extends Component {
                 source={imageSea}
                 style={{ width: '100%', height: '100%' }}
             >
-                <KeyboardAvoidingView style={{ flex: 1 }} >
-                    <View style={{ flex: 9 }}>
+                
+                    <View style={{ flex: 10 }}>
                         <FlatList
                             data={this.props.personMessages}
                             extraData={this.props.personMessages}
@@ -125,27 +128,28 @@ class MessageWindow extends Component {
                         />
                     </View>
                     <View style={styles.writeBoxStyle}>
+                    <KeyboardAwareScrollView >
                         <TextInput
                             keyboardType="default"
                             placeholder="xxxArifxxx"
                             autoCorrect={false}
                             style={inputStyle}
                             multiline
-                            numberOfLines={4}
+                            numberOfLines={2}
                             value={this.props.message}
                             allowFontScaling={false}
                             onChangeText={this.updateMessage.bind(this)}
                             onFocus={() => { this.getKeyboard(); }}
                         />
                         {this.renderSendButton()}
-                    </View>
-                </KeyboardAvoidingView>
+               </KeyboardAwareScrollView>
+               </View>
             </ImageBackground>
         );
     }
 }
 
-const styles = {
+const styles = StyleSheet.create({
     ownerViewStyle: {
         borderTopColor: 'purple',
         borderWidth: 1,
@@ -191,33 +195,37 @@ const styles = {
     },
 
     writeBoxStyle: {
-        flex: 1.4,
+        backgroundColor: '#CFD6E6',
         flexDirection: 'row',
-        backgroundColor: '#47DCE8',
+        alignItems: 'center',
+        height: 70,
         borderColor: 'black',
         borderWidth: 2,
-        borderRadius: 15
+        borderRadius: 15,
+        marginBottom: 4
     },
 
     inputStyle: {
         color: 'blue',
         paddingRight: 5,
         paddingLeft: 5,
-        fontSize: 15,
-        lineHeight: 13,
-        flex: 7.5,
+        fontSize: 18,
         borderWidth: 3,
-        borderRadius: 10,
+        borderRadius: 12,
         borderColor: 'green',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        marginRight: 45
     },
 
     buttonStyle: {
         borderColor: 'green',
         borderWidth: 3,
-        borderRadius: 20
+        borderRadius: 15,
+        margin: 15,
+        position: 'absolute',
+        alignSelf: 'flex-end'
     }
-};
+});
 
 const mapStateToProps = state => {
     const personMessages = _.map(state.personMessages, (val, uid) => ({ ...val, uid }));
